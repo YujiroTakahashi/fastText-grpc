@@ -1,18 +1,16 @@
-# fastText-php
+# fastText-grpc
 
 fastText-grpc is a PHP bindings for fastText and gRPC server.
 
-* [fastText](https://fasttext.cc/) is a library for efficient learning of word representations and sentence classification.
-* [gRPC](https://grpc.io/) - An RPC library and framework
-* [Protocol Buffers](https://developers.google.com/protocol-buffers/) - Google's data interchange format
 
 
 ## Requirements
 
-* PHP 7.x
-* fastText shard object
-* gRPC
-* Protocol Buffers
+* [PHP 7.x](https://www.php.net/)
+* [fastText](https://fasttext.cc/) is a library for efficient learning of word representations and sentence classification.
+* [gRPC](https://grpc.io/) - An RPC library and framework
+* [Protocol Buffers](https://developers.google.com/protocol-buffers/) - Google's data interchange format
+
 
 ```
 $ curl -fSL "https://github.com/facebookresearch/fastText/archive/v0.9.1.tar.gz" -o "./fastText-0.9.1.tgz"
