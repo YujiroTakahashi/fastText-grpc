@@ -85,7 +85,7 @@ fastText {
 [fastText::getPredict](#getpredict)  
 [fastText::getNN](#getnn)  
 [fastText::getAnalogies](#getanalogies)  
-[fastText::getNgramVectors](#getngramvectors)  
+[fastText::getNgrams](#getngramvectors)  
   
 [return value format](#returnvalf)  
 
