@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+option objc_class_prefix = "CFT";
+
+import "google/protobuf/empty.proto";
+
+package croco;
+
+service fText {
+    rpc LoadModel (ModelRequest) returns (DoneReply) {}
+    rpc WordRows (google.protobuf.Empty) returns (RowsReply) {}
+    rpc LabelRows (google.protobuf.Empty) returns (RowsReply) {}
+    rpc WordID (WordRequest) returns (IDReply) {}
+    rpc SubwordID (WordRequest) returns (IDReply) {}
+    rpc Word (IDRequest) returns (WordReply) {}
+    rpc Label (IDRequest) returns (WordReply) {}
+    rpc Predict (WordKRequest) returns (PredictReply) {}
+    rpc WordVectors (WordRequest) returns (VectorsReply) {}
+    rpc SubwordVectors (WordRequest) returns (VectorsReply) {}
+    rpc SentenceVectors (WordRequest) returns (VectorsReply) {}
+    rpc Ngrams (WordRequest) returns (NgramsReply) {}
+    rpc NN (WordKRequest) returns (ScoreReply) {}
+    rpc Analogies (WordKRequest) returns (ScoreReply) {}
+}
+
+message ModelRequest {
+    string model = 1;
+}
+
+message DoneReply {
+    uint32 done = 1;
+}
+
+message RowsReply {
+    uint32 rows = 1;
+}
+
+message WordRequest {
+    string word = 1;
+}
+
+message IDReply {
+    uint32 id = 1;
+}
+
+message IDRequest {
+    uint32 id = 1;
+}
+
+message WordReply {
+    string word = 1;
+}
+
+message WordKRequest {
+    string word = 1;
+    uint32 k = 2;
+}
+
+message PredictReply {
+    message Predict {
+        float prob = 1;
+        string label = 2;
+    }
+    repeated Predict predicts = 1;
+}
+
+message VectorsReply {
+    repeated float vectors = 1;
+}
+
+message NgramsReply {
+    message Node {
+        string word = 1;
+        repeated float vectors = 2;
+    }
+    repeated Node ngrams = 1;
+}
+
+message ScoreReply {
+    message Score {
+        string word = 1;
+        float score  = 2;
+    }
+    repeated Score scores = 1;
+}
