@@ -41,15 +41,24 @@ inline std::vector<std::pair<fasttext::real, std::string>> CFastText::getPredict
     std::stringstream ioss;
     ioss.str(word);
 
-    if (0 >= k) {
-        k = getK();
-    }
+    std::vector<int32_t> words, labels;
+    dict_->getLine(ioss, words, labels);
 
-    std::vector<std::pair<fasttext::real, std::string>> predictions;
+    std::vector<std::pair<fasttext::real, int32_t>> predictions;
     fasttext::real threshold = 0.0;
-    predictLine(ioss, predictions, k, threshold);
+    predict(k, words, predictions, threshold);
 
-    return predictions;
+    std::vector<std::pair<fasttext::real, std::string>> result;
+    for (const auto& p : predictions) {
+        result.push_back(
+            std::make_pair(
+                std::exp(p.first), 
+                dict_->getLabel(p.second)
+            )
+        );
+    } // for (const auto& p : predictions)
+
+    return result;
 }
 
 /**
@@ -64,10 +73,6 @@ inline std::vector<std::pair<fasttext::real, std::string>> CFastText::getAnalogi
 {
     fasttext::Vector buffer(args_->dim), query(args_->dim);
     query.zero();
-
-    if (0 >= k) {
-        k = getK();
-    }
 
     std::vector<std::pair<int, std::string>> queries = _parseQuery(word);
     std::set<std::string> banSet;
