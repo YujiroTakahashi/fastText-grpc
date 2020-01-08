@@ -160,6 +160,9 @@ grpc::Status fTextServiceImpl::Predict(grpc::ServerContext* context, const croco
 
     std::vector<std::pair<fasttext::real, std::string>> predictions;
     try {
+        if (0 >= k) {
+            k = fasttext_->getK();
+        }
         predictions = fasttext_->getPredict(k, word);
         for (auto &p : predictions) {
             auto* node = reply->add_predicts();
@@ -291,11 +294,12 @@ grpc::Status fTextServiceImpl::NN(grpc::ServerContext* context, const croco::Wor
     std::vector<std::pair<fasttext::real, std::string>> result;
     std::string word = request->word();
     int32_t k = request->k();
-    if (0 >= k) {
-        k = fasttext_->getK();
-    }
 
     try {
+        if (0 >= k) {
+            k = fasttext_->getK();
+        }
+
         result = fasttext_->getNN(word, k);
         for (auto &value : result) {
             auto *node = reply->add_scores();
@@ -323,11 +327,12 @@ grpc::Status fTextServiceImpl::Analogies(grpc::ServerContext* context, const cro
     std::vector<std::pair<fasttext::real, std::string>> result;
     std::string word = request->word();
     int32_t k = request->k();
-    if (0 >= k) {
-        k = fasttext_->getK();
-    }
 
     try {
+        if (0 >= k) {
+            k = fasttext_->getK();
+        }
+
         result = fasttext_->getAnalogies(k, word);
         for (auto &value : result) {
             auto *node = reply->add_scores();
