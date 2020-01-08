@@ -25,8 +25,8 @@ extern "C" {
 typedef void *FastTextHandle;
 
 typedef struct _php_fasttext_object {
-    zend_object zo;
     FastTextHandle handle;
+    zend_object zo;
 } php_fasttext_object;
 
 static inline php_fasttext_object *php_fasttext_from_obj(zend_object *obj) {
